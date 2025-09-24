@@ -2,14 +2,14 @@ name: CI & Deploy
 
 on:
   push:
-    branches: [ main ]      # deploy on pushes to main
-  pull_request:             # keep PR checks
+    branches: [main] # deploy on pushes to main
+  pull_request: # keep PR checks
     types: [opened, edited, synchronize, reopened]
-  workflow_dispatch:        # allow manual runs
+  workflow_dispatch: # allow manual runs
 
 permissions:
   contents: read
-  pages: write              # needed for Pages deploy
+  pages: write # needed for Pages deploy
   id-token: write
 
 concurrency:
@@ -56,11 +56,11 @@ jobs:
         if: github.event_name == 'push'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist      # Astro outputs to dist/
+          path: ./dist # Astro outputs to dist/
 
   deploy:
     name: Deploy to GitHub Pages
-    if: github.event_name == 'push'   # don't deploy for PRs
+    if: github.event_name == 'push' # don't deploy for PRs
     needs: build
     runs-on: ubuntu-latest
     environment:
