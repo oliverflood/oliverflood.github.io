@@ -1,7 +1,7 @@
 ---
 author: Oliver Flood
-pubDatetime: 2025-09-23T16:55:12
-modDatetime: 2025-09-23T16:55:12
+pubDatetime: 2025-09-22T16:55:12
+modDatetime: 2025-09-22T16:55:12
 title: How does automatic differentiation work?
 slug: how-does-autograd-work
 featured: false
