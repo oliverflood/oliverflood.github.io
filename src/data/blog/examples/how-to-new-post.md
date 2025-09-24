@@ -9,8 +9,7 @@ draft: true
 tags:
   - ml
   - clouds
-description:
-  End-to-end machine learning project to identify cloud types in ground photos from phone cameras. 
+description: End-to-end machine learning project to identify cloud types in ground photos from phone cameras.
 ---
 
 Here are some rules/recommendations, tips & ticks for creating new posts in AstroPaper blog theme.
@@ -100,7 +99,7 @@ export const blogSchema = z.object({
 
 Here is the sample frontmatter for a post.
 
-```yaml 
+```yaml
 ---
 title: The title of the post
 author: your name

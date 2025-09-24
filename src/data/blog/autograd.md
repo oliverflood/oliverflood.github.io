@@ -9,8 +9,7 @@ draft: false
 tags:
   - ml
   - clouds
-description:
-  Exploring the inner workings of reverse-mode automatic differentiation, the magic behind modern machine learning.
+description: Exploring the inner workings of reverse-mode automatic differentiation, the magic behind modern machine learning.
 ---
 
 Content coming soon!

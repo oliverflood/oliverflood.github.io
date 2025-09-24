@@ -9,8 +9,7 @@ draft: false
 tags:
   - ml
   - clouds
-description:
-  My journey of building an end-to-end machine learning project to identify cloud types in phone camera photos. 
+description: My journey of building an end-to-end machine learning project to identify cloud types in phone camera photos.
 ---
 
 Content coming soon!
