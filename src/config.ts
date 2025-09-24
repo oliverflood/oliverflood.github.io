@@ -1,6 +1,6 @@
 export const SITE = {
-  website: "https://oliverflood.com/",
-  author: "Sat Naing",
+  website: "https://oliverflood.com",
+  author: "Oliver Flood",
   profile: "https://satnaing.dev/",
   desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
   title: "AstroPaper",
