@@ -1,16 +1,16 @@
 ---
-author: Sat Naing
-pubDatetime: 2022-09-23T15:22:00Z
-modDatetime: 2025-06-13T16:52:45.934Z
-title: Adding new posts in AstroPaper theme
-slug: adding-new-posts-in-astropaper-theme
+author: Oliver Flood
+pubDatetime: 2025-09-24
+modDatetime: 2025-09-24
+title: Nope
+slug: stop
 featured: true
-draft: false
+draft: true
 tags:
-  - docs
+  - ml
+  - clouds
 description:
-  Some rules & recommendations for creating or adding new posts using AstroPaperr
-  theme.
+  End-to-end machine learning project to identify cloud types in ground photos from phone cameras. 
 ---
 
 Here are some rules/recommendations, tips & ticks for creating new posts in AstroPaper blog theme.
@@ -100,7 +100,7 @@ export const blogSchema = z.object({
 
 Here is the sample frontmatter for a post.
 
-```yaml file="src/data/blog/sample-post.md"
+```yaml 
 ---
 title: The title of the post
 author: your name

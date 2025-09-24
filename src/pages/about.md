@@ -3,35 +3,12 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-AstroPaper is a minimal, accessible and SEO-friendly blog theme built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/).
+Hi, thanks for visiting my website!
 
-![Astro Paper](public/astropaper-og.jpg)
+My name is Oliver Flood, and I'm currently a master's computer science student at Oregon State University. I'm also the vice president of the [OSU ACM chapter](https://acm.oregonstate.edu) where I enjoy competitive programming. I'm working towards a career in data science & ML engineering. 
 
-AstroPaper provides a solid foundation for blogs, or even portfolios\_ with full markdown support, built-in dark mode, and a clean layout that works out-of-the-box.
+<!-- Some things I love doing: solving the annual [Advent of Code](https://adventofcode.com/) puzzles, struggling through [Project Euler](https://projecteuler.net/) problems, studying on the 2nd floor of The Valley Library, and biking when the sun comes out.  -->
 
-The blog posts in this theme also serve as guides, docs or example articles\_ making AstroPaper a flexible starting point for your next content-driven site.
+Feel free to reach out using the links below!
 
-## Features
-
-AstroPaper comes with a set of useful features that make content publishing easy and effective:
-
-- SEO-friendly
-- Fast performance
-- Light & dark mode
-- Highly customizable
-- Organizable blog posts
-- Responsive & accessible
-- Static search with [PageFind](https://pagefind.app/)
-- Automatic social image generation
-
-and so much more.
-
-## Show your support
-
-If you like [AstroPaper](https://github.com/satnaing/astro-paper), consider giving it a star ⭐️.
-
-Found a bug 🐛 or have an improvement ✨ in mind? Feel free to open an [issue](https://github.com/satnaing/astro-paper/issues), submit a [pull request](https://github.com/satnaing/astro-paper/pulls) or start a [discussion](https://github.com/satnaing/astro-paper/discussions).
-
-If you find this theme helpful, you can also [sponsor me on GitHub](https://github.com/sponsors/satnaing) or [buy me a coffee](https://buymeacoffee.com/satnaing) to show your support — every penny counts.
-
-Kyay zuu! 🙏🏼
+*This website was made with [Astro](https://github.com/withastro/astro) using the [AstroPaper](https://github.com/satnaing/astro-paper) theme.*
