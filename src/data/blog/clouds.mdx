@@ -1,0 +1,121 @@
+---
+author: Oliver Flood
+pubDatetime: 2025-09-23T16:56:12
+modDatetime: 2025-09-23T16:56:12
+title: "The cloud classifier: an odyssey"
+slug: cloud-classifier-odyssey
+featured: true
+draft: false
+tags:
+  - ml
+  - clouds
+description: My journey of building an end-to-end machine learning project to identify cloud types in phone camera photos.
+---
+
+import Aside from "../../components/Aside.astro";
+
+I've been wanting to build an end-to-end ML project for a while now, and I finally had a good idea that seemed relatively original: a cloud classifier!
+
+<Aside variant="note">
+  What is presented here is much cleaner than the path I originally took. Some
+  mistakes and rabbit holes are pointed out in notes like this.
+</Aside>
+
+The end goal is simple: Build an app where you can take a photo of a cloud and get some standard classification of the cloud.
+
+## Can we do it?
+
+How can we check whether the project is feasible? Well, there are some considerations.
+
+1. **Is there data available online?** <br/>
+   The [Cirrus Cumulus Stratus Nimbus (CCSN) dataset](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/CADDPD) found in [this paper](https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2018GL077787) looks good at a first glance. CCSN appears to be a pretty common ground photo dataset used in academic papers, and is also [available on Kaggle](https://www.kaggle.com/datasets/mmichelli/cirrus-cumulus-stratus-nimbus-ccsn-database).
+
+2. **Has it been done before?** <br/>
+   In academic papers, yes, but not too many times. One example is this [research paper](https://peerj.com/articles/cs-1779/) which compares different vision models on the CCSN dataset. Another example is this paper on [self-supervised cloud classification](https://journals.ametsoc.org/view/journals/aies/3/1/AIES-D-23-0036.1.xml) from satellite images. I can only find a couple GitHub repos, with the top result being [this one by Marcos Plaza](https://github.com/marcosPlaza/Ground-based-Cloud-Classification-with-Deep-Learning) on CCSN. Out of the handful of apps, almost all are paywalled and wrap a call to ChatGPT asking for a cloud type (what a shame). The best app I've found is the [CloudSpotter app](https://play.google.com/store/apps/details?id=com.cloudappreciationsociety.cloudaday&hl=en_US&pli=1) by the [Cloud Appreciation Society (CAS)](https://cloudappreciationsociety.org/).
+
+3. **Are the compute/storage requirements reasonable?** <br/>
+   CCSN is relatively small at 2543 jpg images, with each image averaging around 50kB in size. That's perfectly reasonable to fit on my machine. Deep vision model training runs should take under a couple of hours, which is reasonable.
+
+This isn't a bad place to start!
+
+<Aside variant="note">
+  If only I had known the enormous pain getting good data would be. It was never
+  going to be as easy as finding something off Kaggle. But, that's part of the
+  fun after all.
+</Aside>
+
+## Should we do it?
+
+Well, a personal goal of mine was to create something original. The academic papers don't deter me so much, since the only ground-based images use CCSN or data without cloud types like the [SWIMCAT](https://malea.winkler.site/swimcat.html) dataset. There are some notebooks on Kaggle for CCSN but, as I'll cover later, CCSN isn't so ideal for my own goal of making an app.
+
+Speaking of apps, the only app that would deter me is CloudSpotter, but it has a couple flaws. You can't upload past images, there is no multi-label classification of clouds, I don't think there's privacy of the images you upload, and there is no web-based deployment. So, this gives me hope that I can nontrivially improve upon the lucrative cloud classification space. I also know that CloudSpotter pays people to label their data, as a friend told me their Geography PhD professor got offered the job! Since CloudSpotter has access to paid labellers and a database of labelled user submissions, I can't compete with them. And that's totally ok! CloudSpotter is a lovely app, and really does much more than just cloud type identification.
+
+## CCSN shortcomings
+
+The CCSN dataset isn't as good as you might think. The end goal is to deploy this classifier on an app, and so the distribution of cloud photos seen by the final model will be from cell phone cameras and amateur photographers. Additionally, the photos will probably be somewhat _boring_. This is an important point. The CCSN images look like they're ripped straight from the Google Search for respective cloud types, and this means a lot of picturesque, sunset-time, and perfectly framed photos. My guess is that the distribution of cloud images in CCSN is fairly different from the distribution a model might encounter being deployed on an app.
+
+<figure>
+  <div class="grid grid-cols-3 gap-1">
+    <img
+      src="/assets/images/CCSN_Ac-N062.jpg"
+      alt="CCSN altocumulus image 062"
+      class="m-0 block h-auto w-full"
+    />
+    <img
+      src="/assets/images/CCSN_Ac-N132.jpg"
+      alt="CCSN altocumulus image 132"
+      class="m-0 block h-auto w-full"
+    />
+    <img
+      src="/assets/images/CCSN_As-N179.jpg"
+      alt="CCSN altostratus image 179"
+      class="m-0 block h-auto w-full"
+    />
+    <img
+      src="/assets/images/CCSN_Cb-N018.jpg"
+      alt="CCSN cumulonimbus image 018"
+      class="m-0 block h-auto w-full"
+    />
+    <img
+      src="/assets/images/CCSN_Cc-N034.jpg"
+      alt="CCSN cirrocumulus image 034"
+      class="m-0 block h-auto w-full"
+    />
+    <img
+      src="/assets/images/CCSN_Ct-N004.jpg"
+      alt="CCSN contrails image 004"
+      class="m-0 block h-auto w-full"
+    />
+    <img
+      src="/assets/images/CCSN_Cu-N009.jpg"
+      alt="CCSN cumulus image 009"
+      class="m-0 block h-auto w-full"
+    />
+    <img
+      src="/assets/images/CCSN_St-N068.jpg"
+      alt="CCSN stratus image 068"
+      class="m-0 block h-auto w-full"
+    />
+    <img
+      src="/assets/images/CCSN_St-N123.jpg"
+      alt="CCSN stratus image 123"
+      class="m-0 block h-auto w-full"
+    />
+  </div>
+  <figcaption>
+    Slightly cherry-picked sample of nine CCSN images. These don't resemble the
+    honest, hardworking clouds you see in the sky every day.
+  </figcaption>
+</figure>
+
+<Aside variant="note">
+  The actual first dataset I found had whole-sky fisheye lens images from a sky
+  observatory. Very cool looking, but not ideal!
+</Aside>
+
+Well, what can we do about this? We want a dataset that will most closely mimic the expected distribution of cloud images a deployed model will pull from. So, basically, we want crappy phone photos taken from the ground.
+
+<Aside variant="oops">
+  Sorry! This post is incomplete, as the project is still a work in progress.
+  Check back later!
+</Aside>
