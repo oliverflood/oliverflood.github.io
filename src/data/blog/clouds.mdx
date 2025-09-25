@@ -13,6 +13,25 @@ description: My journey of building an end-to-end machine learning project to id
 ---
 
 import Aside from "../../components/Aside.astro";
+import { Image } from "astro:assets";
+import CCSN_1 from "../../assets/images/CCSN_Ac-N062.jpg";
+import CCSN_2 from "../../assets/images/CCSN_Ac-N132.jpg";
+import CCSN_3 from "../../assets/images/CCSN_As-N179.jpg";
+import CCSN_4 from "../../assets/images/CCSN_Cb-N018.jpg";
+import CCSN_5 from "../../assets/images/CCSN_Cc-N034.jpg";
+import CCSN_6 from "../../assets/images/CCSN_Ct-N004.jpg";
+import CCSN_7 from "../../assets/images/CCSN_Cu-N009.jpg";
+import CCSN_8 from "../../assets/images/CCSN_St-N068.jpg";
+import CCSN_9 from "../../assets/images/CCSN_St-N123.jpg";
+import GLOBE_1 from "../../assets/images/GLOBE_1.jpg";
+import GLOBE_2 from "../../assets/images/GLOBE_2.jpg";
+import GLOBE_3 from "../../assets/images/GLOBE_3.jpg";
+import GLOBE_4 from "../../assets/images/GLOBE_4.jpg";
+import GLOBE_5 from "../../assets/images/GLOBE_5.jpg";
+import GLOBE_6 from "../../assets/images/GLOBE_6.jpg";
+import GLOBE_7 from "../../assets/images/GLOBE_7.jpg";
+import GLOBE_8 from "../../assets/images/GLOBE_8.jpg";
+import GLOBE_9 from "../../assets/images/GLOBE_9.jpg";
 
 I've been wanting to build an end-to-end ML project for a while now, and I finally had a good idea that seemed relatively original: a cloud classifier!
 
@@ -34,7 +53,7 @@ How can we check whether the project is feasible? Well, there are some considera
    In academic papers, yes, but not too many times. One example is this [research paper](https://peerj.com/articles/cs-1779/) which compares different vision models on the CCSN dataset. Another example is this paper on [self-supervised cloud classification](https://journals.ametsoc.org/view/journals/aies/3/1/AIES-D-23-0036.1.xml) from satellite images. I can only find a couple GitHub repos, with the top result being [this one by Marcos Plaza](https://github.com/marcosPlaza/Ground-based-Cloud-Classification-with-Deep-Learning) on CCSN. Out of the handful of apps, almost all are paywalled and wrap a call to ChatGPT asking for a cloud type (what a shame). The best app I've found is the [CloudSpotter app](https://play.google.com/store/apps/details?id=com.cloudappreciationsociety.cloudaday&hl=en_US&pli=1) by the [Cloud Appreciation Society (CAS)](https://cloudappreciationsociety.org/).
 
 3. **Are the compute/storage requirements reasonable?** <br/>
-   CCSN is relatively small at 2543 jpg images, with each image averaging around 50kB in size. That's perfectly reasonable to fit on my machine. Deep vision model training runs should take under a couple of hours, which is reasonable.
+   CCSN is relatively small at 2543 jpg images, with each image averaging around 50kB in size. That's perfectly reasonable to fit on my machine. Deep vision model training runs should take under a couple of hours, which is also reasonable.
 
 This isn't a bad place to start!
 
@@ -48,7 +67,7 @@ This isn't a bad place to start!
 
 Well, a personal goal of mine was to create something original. The academic papers don't deter me so much, since the only ground-based images use CCSN or data without cloud types like the [SWIMCAT](https://malea.winkler.site/swimcat.html) dataset. There are some notebooks on Kaggle for CCSN but, as I'll cover later, CCSN isn't so ideal for my own goal of making an app.
 
-Speaking of apps, the only app that would deter me is CloudSpotter, but it has a couple flaws. You can't upload past images, there is no multi-label classification of clouds, I don't think there's privacy of the images you upload, and there is no web-based deployment. So, this gives me hope that I can nontrivially improve upon the lucrative cloud classification space. I also know that CloudSpotter pays people to label their data, as a friend told me their Geography PhD professor got offered the job! Since CloudSpotter has access to paid labellers and a database of labelled user submissions, I can't compete with them. And that's totally ok! CloudSpotter is a lovely app, and really does much more than just cloud type identification.
+Speaking of apps, the only app that would deter me is CloudSpotter, but it has a couple flaws. There is no upload past images, no multi-label classification of clouds, no privacy of the images you upload, and no web-based deployment (I can't be bothered to take out my phone for everything). So, this gives me hope that I can nontrivially improve upon the lucrative cloud classification space. I also know that CloudSpotter pays people to label their data, as a friend told me their Geography PhD professor got offered the job! Since CloudSpotter has access to paid labelers and a database of labeled user submissions, I can't compete with them. And that's totally ok! CloudSpotter is a lovely app, and really does much more than just cloud type identification.
 
 ## CCSN shortcomings
 
@@ -56,48 +75,48 @@ The CCSN dataset isn't as good as you might think. The end goal is to deploy thi
 
 <figure>
   <div class="grid grid-cols-3 gap-1">
-    <img
-      src="/assets/images/CCSN_Ac-N062.jpg"
+    <Image
+      src={CCSN_1}
       alt="CCSN altocumulus image 062"
       class="m-0 block h-auto w-full"
     />
-    <img
-      src="/assets/images/CCSN_Ac-N132.jpg"
+    <Image
+      src={CCSN_2}
       alt="CCSN altocumulus image 132"
       class="m-0 block h-auto w-full"
     />
-    <img
-      src="/assets/images/CCSN_As-N179.jpg"
+    <Image
+      src={CCSN_3}
       alt="CCSN altostratus image 179"
       class="m-0 block h-auto w-full"
     />
-    <img
-      src="/assets/images/CCSN_Cb-N018.jpg"
+    <Image
+      src={CCSN_4}
       alt="CCSN cumulonimbus image 018"
       class="m-0 block h-auto w-full"
     />
-    <img
-      src="/assets/images/CCSN_Cc-N034.jpg"
+    <Image
+      src={CCSN_5}
       alt="CCSN cirrocumulus image 034"
       class="m-0 block h-auto w-full"
     />
-    <img
-      src="/assets/images/CCSN_Ct-N004.jpg"
+    <Image
+      src={CCSN_6}
       alt="CCSN contrails image 004"
       class="m-0 block h-auto w-full"
     />
-    <img
-      src="/assets/images/CCSN_Cu-N009.jpg"
+    <Image
+      src={CCSN_7}
       alt="CCSN cumulus image 009"
       class="m-0 block h-auto w-full"
     />
-    <img
-      src="/assets/images/CCSN_St-N068.jpg"
+    <Image
+      src={CCSN_8}
       alt="CCSN stratus image 068"
       class="m-0 block h-auto w-full"
     />
-    <img
-      src="/assets/images/CCSN_St-N123.jpg"
+    <Image
+      src={CCSN_9}
       alt="CCSN stratus image 123"
       class="m-0 block h-auto w-full"
     />
@@ -113,7 +132,67 @@ The CCSN dataset isn't as good as you might think. The end goal is to deploy thi
   observatory. Very cool looking, but not ideal!
 </Aside>
 
-Well, what can we do about this? We want a dataset that will most closely mimic the expected distribution of cloud images a deployed model will pull from. So, basically, we want crappy phone photos taken from the ground.
+Well, what can we do about this? We want a dataset that will most closely mimic the expected distribution of cloud images a deployed model will pull from. So, basically, we want crappy phone photos taken from the ground. Fortunately for us, citizen science comes to the rescue!
+
+## NASA GLOBE dataset
+
+The NASA Global Learning and Observations to Benefit the Environment (GLOBE) program collects citizen scientist data from around the world and makes it freely accessible. Anyone can volunteer, download the app, and contribute, which is pretty awesome. Importantly, part of their data includes a sky conditions report where north, south, east, west, and upwards facing photos of the sky are taken. Users are then guided through a cloud identification wizard to report which of the 10 main cloud genera are visible in the sky (cloud groups defined in the [International Cloud Atlas](https://cloudatlas.wmo.int/en/principles-of-cloud-classification-genera.html)). The real benefit of the NASA GLOBE dataset comes from the fact that the images appear to match the distribution of random cloud pictures you'd get on an app.
+
+<figure>
+  <div class="grid grid-cols-3 gap-1">
+    <Image
+      src={GLOBE_1}
+      alt="GLOBE dataset cloud image"
+      class="m-0 block aspect-square h-auto w-full"
+    />
+    <Image
+      src={GLOBE_2}
+      alt="GLOBE dataset cloud image"
+      class="m-0 block aspect-square h-auto w-full"
+    />
+    <Image
+      src={GLOBE_3}
+      alt="GLOBE dataset cloud image"
+      class="m-0 block aspect-square h-auto w-full"
+    />
+    <Image
+      src={GLOBE_4}
+      alt="GLOBE dataset cloud image"
+      class="m-0 block aspect-square h-auto w-full"
+    />
+    <Image
+      src={GLOBE_5}
+      alt="GLOBE dataset cloud image"
+      class="m-0 block aspect-square h-auto w-full"
+    />
+    <Image
+      src={GLOBE_6}
+      alt="GLOBE dataset cloud image"
+      class="m-0 block aspect-square h-auto w-full"
+    />
+    <Image
+      src={GLOBE_7}
+      alt="GLOBE dataset cloud image"
+      class="m-0 block aspect-square h-auto w-full"
+    />
+    <Image
+      src={GLOBE_8}
+      alt="GLOBE dataset cloud image"
+      class="m-0 block aspect-square h-auto w-full"
+    />
+    <Image
+      src={GLOBE_9}
+      alt="GLOBE dataset cloud image"
+      class="m-0 block aspect-square h-auto w-full"
+    />
+  </div>
+  <figcaption>
+    Random examples of NASA GLOBE sky conditions images cropped to square shape.
+    Hopefully the photos better match the distribution we'd expect from app
+    photos. A very rare cloud type is visible in the bottom right. That is bona
+    fide GLOBE data by the way, and it made my day when I found it.
+  </figcaption>
+</figure>
 
 <Aside variant="oops">
   Sorry! This post is incomplete, as the project is still a work in progress.

@@ -12,3 +12,6 @@
 !.prettierrc
 !eslint.config.js
 !README.md
+
+# This file is bothering me
+src/layouts/Layout.astro

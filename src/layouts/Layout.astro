@@ -45,6 +45,8 @@ const structuredData = {
     },
   ],
 };
+
+const isDev = import.meta.env.DEV;
 ---
 
 <!doctype html>
@@ -54,6 +56,12 @@ const structuredData = {
   class={`${scrollSmooth && "scroll-smooth"}`}
 >
   <head>
+    <!-- prettier-ignore -->
+    {isDev && (
+      <style is:global>
+        html { scroll-behavior: auto !important; }
+      </style>
+    )}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
