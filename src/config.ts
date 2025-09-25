@@ -1,8 +1,8 @@
 export const SITE = {
   website: "https://oliverflood.com",
   author: "Oliver Flood",
-  profile: "https://satnaing.dev/",
-  desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
+  profile: "https://oliverflood.com",
+  desc: "A minimal blog and personal website.",
   title: "Oliver Flood",
   ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
@@ -14,7 +14,7 @@ export const SITE = {
   editPost: {
     enabled: false,
     text: "Edit page",
-    url: "https://github.com/satnaing/astro-paper/edit/main/",
+    url: "https://github.com/",
   },
   dynamicOgImage: true,
   dir: "ltr", // "rtl" | "auto"
