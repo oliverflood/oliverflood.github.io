@@ -33,13 +33,11 @@ import GLOBE_7 from "../../assets/images/GLOBE_7.jpg";
 import GLOBE_8 from "../../assets/images/GLOBE_8.jpg";
 import GLOBE_9 from "../../assets/images/GLOBE_9.jpg";
 
-I've been wanting to build an end-to-end ML project for a while now, and I finally had a good idea that seemed relatively original: a cloud classifier!
+I've been wanting to build an end-to-end ML project for a while now, and I finally had a good, relatively original idea: a cloud classifier! [Here's the GitHub repo.](https://github.com/oliverflood/clouds-ml)
 
 <Aside variant="note">
-  Presented here is the distilled effort of lots of Jupyter notebooks &
-  exploration, and is much cleaner than the real path I took while working on
-  this. Mistakes I made and rabbit holes I went down are ocassionally pointed
-  out like this.
+  Presented here is a distilled retelling of the steps I took while working on
+  this project. I've also included some mistakes, dead ends, and rabbit holes.
 </Aside>
 
 The end goal is simple: Build an app where you can take a photo of a cloud and get some standard classification of the cloud.
@@ -67,22 +65,22 @@ This isn't a bad place to start!
 
 ## Should we do it?
 
-Well, a personal goal of mine was to create something original. The academic papers don't deter me so much, since the only ground-based images use CCSN or data without cloud types like the [SWIMCAT](https://malea.winkler.site/swimcat.html) dataset. There are some notebooks on Kaggle for CCSN but, as I'll cover later, CCSN isn't so ideal for my own goal of making an app.
+Well, a goal for the project is to create something original. Of the academic papers that use ground based photos, most use CCSN or data without cloud types like the [SWIMCAT](https://malea.winkler.site/swimcat.html) dataset. This encourages me as focusing on a deployable model is sufficiently original. There are some Kaggle notebooks for the CCSN dataset, but these feel far from a full project. Also, as I'll cover later, CCSN isn't so ideal for my own goal of making an app.
 
 The only _app_ that would deter me from building my own is CloudSpotter, but it has a couple of flaws:
 
 1. No uploading past images.
 2. No multi-label classification of clouds.
 3. No privacy of the images you upload.
-4. No web-based deployment (I can't be bothered to take out my phone all the time).
+4. No web-based deployment.
 
 The above gives me hope that I can nontrivially improve upon the lucrative cloud classification space. I also know that CloudSpotter pays people to label their data, as a friend told me their Geography PhD professor got offered the job! I can't compete with access to paid labelers and a database of labeled user submissions, and that's totally ok! CloudSpotter is a lovely app, and really does much more than just cloud type identification.
 
-As far as I am aware, I can still work towards making an open source end-to-end cloud identification app and call it original.
+As far as I am aware, I can still work towards making an open source end-to-end cloud identification app using vision models and call it original.
 
 ## The CCSN dataset
 
-As stated above, the [CCSN dataset from Harvard Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/CADDPD) is a common academic dataset. This dataset includes the 10 main cloud genera (cloud groups defined in the [International Cloud Atlas](https://cloudatlas.wmo.int/en/principles-of-cloud-classification-genera.html)) as well as contrails, a type of man-made cloud from airplanes. So CCSN provides a fine space of 11 cloud classes. Importantly, note that this data is single-label, meaning that each image is tagged with one and only one of the 11 cloud classes available.
+As stated above, the [CCSN dataset from Harvard Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/CADDPD) is a common academic dataset. This dataset includes the 10 main cloud genera (cloud groups defined in the [International Cloud Atlas](https://cloudatlas.wmo.int/en/principles-of-cloud-classification-genera.html)) as well as contrails, a type of man-made cloud from airplanes. So CCSN provides a fine space of 11 cloud classes. Importantly, this data is single-label. Each image is tagged with one and only one of the 11 cloud classes available.
 
 <Aside variant="note">
   The 10 main cloud genera are: altocumulus, altostratus, cirrocumulus,
