@@ -2,14 +2,13 @@
 author: Oliver Flood
 pubDatetime: 2025-09-23T16:56:12
 modDatetime: 2025-09-23T16:56:12
-title: "The cloud classifier odyssey"
-slug: cloud-classifier-odyssey
+title: "The cloud classifier: data"
 featured: true
 draft: false
 tags:
   - ml
   - clouds
-description: My journey of building an end-to-end machine learning project to identify cloud types in phone camera photos.
+description: My journey of building an end-to-end machine learning project to identify cloud types in phone camera photos. Can we find good data?
 ---
 
 import Aside from "../../components/Aside.astro";
@@ -33,14 +32,14 @@ import GLOBE_7 from "../../assets/images/GLOBE_7.jpg";
 import GLOBE_8 from "../../assets/images/GLOBE_8.jpg";
 import GLOBE_9 from "../../assets/images/GLOBE_9.jpg";
 
-I've been wanting to build an end-to-end ML project for a while now, and I finally had a good, relatively original idea: a cloud classifier! [Here's the GitHub repo.](https://github.com/oliverflood/clouds-ml)
+I've been wanting to build an end-to-end ML project for a while now, and I finally had a good idea: a cloud classifier! [Here's the GitHub repo.](https://github.com/oliverflood/clouds-ml) The end goal is simple: Build an app where you can take a photo of a cloud and get some standard classification of the cloud.
 
 <Aside variant="note">
-  Presented here is a distilled retelling of the steps I took while working on
-  this project. I've also included some mistakes, dead ends, and rabbit holes.
+  Presented here is an approximate retelling of the steps I took while working
+  on this project. This post focuses on the first part of the journey.
 </Aside>
 
-The end goal is simple: Build an app where you can take a photo of a cloud and get some standard classification of the cloud.
+## Table of contents
 
 ## Can we do it?
 
@@ -80,12 +79,13 @@ As far as I am aware, I can still work towards making an open source end-to-end 
 
 ## The CCSN dataset
 
-As stated above, the [CCSN dataset from Harvard Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/CADDPD) is a common academic dataset. This dataset includes the 10 main cloud genera (cloud groups defined in the [International Cloud Atlas](https://cloudatlas.wmo.int/en/principles-of-cloud-classification-genera.html)) as well as contrails, a type of man-made cloud from airplanes. So CCSN provides a fine space of 11 cloud classes. Importantly, this data is single-label. Each image is tagged with one and only one of the 11 cloud classes available.
+As stated above, the [CCSN dataset from Harvard Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/CADDPD) is a common academic dataset with 2543 labeled cloud images. This labels include the 10 main cloud genera (cloud groups defined in the [International Cloud Atlas](https://cloudatlas.wmo.int/en/principles-of-cloud-classification-genera.html)) as well as contrails, a type of man-made cloud from airplanes. So CCSN provides a fine space of 11 cloud classes. Importantly, this data is single-label. Each image is tagged with one and only one of the 11 cloud classes available.
 
 <Aside variant="note">
   The 10 main cloud genera are: altocumulus, altostratus, cirrocumulus,
   cirrostratus, cirrus, cumulonimbus, cumulus, nimbostratus, stratocumulus,
-  stratus.
+  stratus. [Here's a great place to learn
+  more.](https://cloudappreciationsociety.org/cloud-library/)
 </Aside>
 
 ### CCSN shortcomings
@@ -153,15 +153,15 @@ The CCSN dataset isn't as good as you might think. The end goal is to deploy thi
   ideal for this application!
 </Aside>
 
-Well, what can we do about this? We want a dataset that will most closely mimic the expected distribution of cloud images a deployed model will pull from. So, basically, we want crappy phone photos taken from the ground. Fortunately for us, citizen science comes to the rescue!
+Well, what can we do about this? We want a dataset that will most closely mimic the expected distribution of cloud images a deployed model will pull from. So, basically, we want mundane phone photos taken from the ground. Fortunately for us, citizen science comes to the rescue!
 
 ## NASA GLOBE dataset
 
-The [NASA Global Learning and Observations to Benefit the Environment (GLOBE)](https://www.globe.gov/globe-data) program collects citizen scientist data from around the world and makes it freely accessible. Anyone can volunteer, download the app, and contribute, which is pretty awesome.
+The [NASA Global Learning and Observations to Benefit the Environment (GLOBE)](https://www.globe.gov/globe-data) program collects citizen scientist data from around the world and makes it freely accessible. Anyone can volunteer, download the app, and contribute.
 
 Importantly, part of their data includes a sky conditions report where north, south, east, west, and upwards facing photos of the sky are taken. Users are then guided through a cloud identification wizard to report which of the 10 main cloud genera are visible in the sky. The real benefit of the NASA GLOBE dataset comes from the fact that the images appear to match the distribution of random cloud pictures you'd get on an app. Basically, they're just more normal looking.
 
-There is also an enormous amount of GLOBE data. In only about a year's worth of GLOBE data I collected were **334,540** photos of the sky! There is also a great amount of guaranteed geographical & seasonal variety.
+There also is an enormous amount of GLOBE data. In only about a year's worth of GLOBE data I collected were **334,540** photos of the sky! There is also a great amount of guaranteed geographical & seasonal variety. The GLOBE data has labels for the main 10 cloud types, as well as for fog and contrails. There is loads of other information and metadata collected for each observation in the dataset as well.
 
 <figure>
   <div class="grid grid-cols-3 gap-1">
@@ -219,7 +219,7 @@ There is also an enormous amount of GLOBE data. In only about a year's worth of 
   </figcaption>
 </figure>
 
-### NASA GLOBE shortcomings
+### GLOBE shortcomings
 
 Just like the CCSN dataset, the NASA GLOBE dataset also has some problems.
 
@@ -231,6 +231,8 @@ Just like the CCSN dataset, the NASA GLOBE dataset also has some problems.
 
 3. **Some images aren't clouds.** <br/>
    This is by far the least important problem, but it's still worth mentioning. There are examples of [near-black screens](https://data.globe.gov/system/photos/2024/07/13/4056674/original.jpg) and [photos of the ground](https://data.globe.gov/system/photos/2025/08/29/4689720/original.jpg) submitted for all observation photos.
+
+{/* Add notes about covariance between cloud labels. */}
 
 <Aside variant="note">
   At this point in the project I got very worried that no data would be good
@@ -246,13 +248,51 @@ Just like the CCSN dataset, the NASA GLOBE dataset also has some problems.
 
 ## NASA CLOUD GAZE dataset
 
-The [NASA GLOBE CLOUD GAZE](https://www.zooniverse.org/projects/nasaglobe/nasa-globe-cloud-gaze) dataset was born from a collaboration between NASA and the citizen science platform Zooniverse.
+The [NASA GLOBE CLOUD GAZE](https://www.zooniverse.org/projects/nasaglobe/nasa-globe-cloud-gaze) is a subset of the NASA GLOBE data born from a collaboration between NASA and the citizen science platform Zooniverse. How GAZE works is that NASA GLOBE photos are reviewed by multiple citizen scientists, only being officially classified and retired when:
+
+1. **Consenus among labelers is reached.** All labelers agree on on what types of clouds are in the photo.
+2. **Enough classifications are taken.** Eight labelers or 80% of those that classified the photo agreed on the result.
+
+This ensemble of labelers gets us much much higher quality labels than the standard GLOBE data. Additionally, labelers can mark photos as having a blocked view, being blurry, or taken at night, and we can safely exclude these from our own training data. In total, GAZE gets us 13,500 well-labeled photos. While this is nowhere near as many as GLOBE, it is significantly more than the 2543 photos in CCSN.
+
+<Aside variant="note">
+  The GAZE data was actually only an 18-month prototype funded by the [NASA
+  Citizen Science for Earth Systems
+  Program](https://www.earthdata.nasa.gov/about/competitive-programs/csesp).
+  Unforunately, the project wasn't able to secure a full implementation, which
+  would have granted an additional 3 years of funding. A real shame, imagine
+  what could have been!
+</Aside>
+
+One last very important detail is that while GAZE selected _observations_ from the GLOBE data, it has labels _per-photo_ for each photo in the observation. That's massive! GAZE solves <u>all three problems</u> from the regular GLOBE data. GAZE also has 5x as many photos as CCSN and the photos better match our assumption about the distribution of cloud photos in the wild. So the GAZE data is perfect, right?
+
+### GAZE shortcomings
+
+The GAZE dataset, while amazing, is not perfect. The biggest issue is that the label space is different. Instead of the 10 cloud genera outlined by the International Cloud Association, the GAZE data has the following 7 labels for each photograph:
+
+1. `clearsky`
+2. `cirrus or cirrostratus`
+3. `cirrocumulus or altocumulus`
+4. `altostratus or stratus`
+5. `stratocumulus`
+6. `cumulus`
+7. `cumulonimbus`
+
+This is quite different from CCSN or GLOBE. Firstly, there is an explicit label for a clear sky. Additionally, cirrocumulus and altocumulus were combined into one label. This makes some sense as they are easy to confuse, both being a layer of small cloudlets (_cirro_ clouds being the highest altitude while _alto_ clouds are mid-range). The altostratus and stratus labels are also combined, and similarly they are both blankets of cloud primarily differentiated by height level. The combination of cirrus and cirrostratus is a little more confusing. They are both very high clouds and it's possibly they are mislabeled frequently. What really confounds me is that there is no label for [nimbostratus](https://cloudappreciationsociety.org/cloud-library/nimbostratus/), the thick, gray, and somewhat depressing raincloud.
+
+There are [more labels available in GAZE](https://observer.globe.gov/documents/19589576/60147054/CLOUD+GAZE+Data+Description+v2.0.pdf) such as contrails, smoke, and dust, but let's ignore these as so few of the images actually have such labels. I know, I know. Contrail classification is hard to let go, as contrails are indeed clouds. However, to limit project scope, we'll have to keep it all-natural for now.
+
+This different labeling gives the GAZE data a unique tradeoff. We can't classify as many cloud types but get enormous advantages in data quality. I think it's a good idea to try and use the GAZE data for the time being. Primarily, the GAZE data gives us high quality data from a good distribution. Additionally, as far as I can tell, nobody else has tried training a classifier on the GAZE data! This is nice, as there are a couple of academic/Kaggle classifiers trained on CCSN.
+
+## Conclusion
+
+{/* We can strech this by using transformations like random resized crops, slight rotations, color jitter, and horizontal flips. This is a nice advantage of working on a computer vision problem, as these transformations generally preserve the original label but give us sufficiently different data so our model doesn't overfit. */}
 
 <Aside variant="oops">
-  Sorry! This post is incomplete, as the project is still a work in progress.
-  Check back later!
+  Sorry! This post is incomplete, as I'm still in the process of writing and
+  putting together this website. Check back later!
 </Aside>
 
 ## Footnotes
 
-[^1]: I am aware of [multiple instance learning](https://en.wikipedia.org/wiki/Multiple_instance_learning) which bags together multiple instances for an observation level label. However, even with this fix, I'm not convinced the raw NASA GLOBE dataset could work well. Definitely worth looking into, though.
+[^1]: I am aware of [multiple instance learning](https://en.wikipedia.org/wiki/Multiple_instance_learning) which bags together multiple instances for an observation level label. However, even with this fix, I'm not convinced the raw NASA GLOBE dataset would work well.
