@@ -1,0 +1,36 @@
+---
+import IconArrowLeft from "@/assets/icons/IconArrowLeft.svg";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import { SITE } from "@/config";
+
+const referer = new URL(SITE.website).hostname;
+const prevUrl = `https://dam-ring.pdx.land/prev?referer=${encodeURIComponent(referer)}`;
+const nextUrl = `https://dam-ring.pdx.land/next?referer=${encodeURIComponent(referer)}`;
+---
+
+<nav
+  class="my-2 grid w-full grid-cols-3 items-center gap-3 text-sm text-skin-base/70"
+  aria-label="DAM web ring navigation"
+>
+  <a
+    href={prevUrl}
+    class="justify-self-start hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+    aria-label="Previous site in the DAM web ring"
+    title="Previous site in the DAM web ring"
+  >
+    <IconArrowLeft class="inline-block size-5" aria-hidden="true" />
+    Left
+  </a>
+  <a class="justify-self-center text-center" aria-hidden="true" href="https://github.com/lukasmwerner/dam-web-ring">
+    Dam Web Ring 🦫
+  </a>
+  <a
+    href={nextUrl}
+    class="justify-self-end hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+    aria-label="Next site in the DAM web ring"
+    title="Next site in the DAM web ring"
+  >
+    Right
+    <IconArrowRight class="inline-block size-5" aria-hidden="true" />
+  </a>
+</nav>
