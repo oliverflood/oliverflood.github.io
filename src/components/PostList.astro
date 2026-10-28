@@ -1,0 +1,30 @@
+---
+import Doodle from "./Doodle.astro";
+import { formatDate, postUrl, readingMinutes, type Post } from "@/lib/posts";
+
+interface Props {
+  posts: Post[];
+}
+const { posts } = Astro.props;
+---
+
+<ol class="post-list">
+  {
+    posts.map(post => (
+      <li>
+        <a href={postUrl(post)} class="post-item">
+          <Doodle seed={post.id} image={post.data.doodle} />
+          <div>
+            <p class="meta">
+              <time datetime={post.data.pubDatetime.toISOString()}>{formatDate(post.data.pubDatetime)}</time>
+              <span>· {readingMinutes(post)} min</span>
+              {post.data.draft && <span class="draft">draft</span>}
+            </p>
+            <h3 class="post-title">{post.data.title}</h3>
+            <p class="post-desc">{post.data.description}</p>
+          </div>
+        </a>
+      </li>
+    ))
+  }
+</ol>

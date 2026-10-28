@@ -1,23 +1,11 @@
 export const SITE = {
-  website: "https://oliverflood.com",
-  author: "Oliver Flood",
-  profile: "https://oliverflood.com",
-  desc: "A minimal blog and personal website.",
+  url: "https://oliverflood.com",
   title: "Oliver Flood",
-  ogImage: "astropaper-og.jpg",
-  lightAndDarkMode: true,
-  postPerIndex: 4,
-  postPerPage: 4,
-  scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
-  showArchives: true,
-  showBackButton: true, // show back button in post detail
-  editPost: {
-    enabled: false,
-    text: "Edit page",
-    url: "https://github.com/",
-  },
-  dynamicOgImage: true,
-  dir: "ltr", // "rtl" | "auto"
-  lang: "en", // html lang code. Set this empty and default will be "en"
-  timezone: "US/Pacific", // Default global timezone (IANA format) https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  author: "Oliver Flood",
+  description: "Oliver Flood's personal website and blog.",
+  links: [
+    { name: "github", href: "https://github.com/oliverflood" },
+    { name: "linkedin", href: "https://www.linkedin.com/in/oliverflood/" },
+    { name: "email", href: "mailto:oliveroldrich@gmail.com" },
+  ],
 } as const;

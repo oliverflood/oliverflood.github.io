@@ -1,27 +1,54 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
-import PostDetails from "@/layouts/PostDetails.astro";
-import getSortedPosts from "@/utils/getSortedPosts";
-import { getPath } from "@/utils/getPath";
-
-export interface Props {
-  post: CollectionEntry<"blog">;
-}
+import { render } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import Doodle from "@/components/Doodle.astro";
+import { getPosts, postUrl, formatDate, readingMinutes, type Post } from "@/lib/posts";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
-  const postResult = posts.map(post => ({
-    params: { slug: getPath(post.id, post.filePath, false) },
-    props: { post },
+  const posts = await getPosts();
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: { post, newer: posts[i - 1], older: posts[i + 1] },
   }));
-
-  return postResult;
 }
 
-const { post } = Astro.props;
-
-const posts = await getCollection("blog");
-const sortedPosts = getSortedPosts(posts);
+interface Props {
+  post: Post;
+  newer?: Post;
+  older?: Post;
+}
+const { post, newer, older } = Astro.props;
+const { title, description, pubDatetime, modDatetime, tags, doodle } = post.data;
+const { Content } = await render(post);
+const updated = modDatetime && modDatetime.toDateString() !== pubDatetime.toDateString();
 ---
 
-<PostDetails post={post} posts={sortedPosts} />
+<Base title={title} description={description}>
+  <article class="post">
+    <header class="post-header">
+      <a href="/posts/" class="back">← writing</a>
+      <div class="post-header-row">
+        <div>
+          <h1 class="post-heading">{title}</h1>
+          <p class="dek">{description}</p>
+          <p class="meta">
+            <time datetime={pubDatetime.toISOString()}>{formatDate(pubDatetime)}</time>
+            {updated && <span>· updated {formatDate(modDatetime)}</span>}
+            <span>· {readingMinutes(post)} min read</span>
+            {tags.map(tag => <span class="tag">#{tag}</span>)}
+          </p>
+        </div>
+        <Doodle seed={post.id} image={doodle} size={112} />
+      </div>
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+
+  <nav class="post-nav">
+    {older ? <a href={postUrl(older)}><span class="meta">← older</span>{older.data.title}</a> : <span />}
+    {newer && <a href={postUrl(newer)} class="newer"><span class="meta">newer →</span>{newer.data.title}</a>}
+  </nav>
+</Base>

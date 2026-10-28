@@ -1,25 +1,21 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
-import { SITE } from "@/config";
-
-export const BLOG_PATH = "src/data/blog";
 
 const blog = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: `./${BLOG_PATH}` }),
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/blog" }),
   schema: ({ image }) =>
     z.object({
-      author: z.string().default(SITE.author),
+      title: z.string(),
+      description: z.string(),
       pubDatetime: z.date(),
       modDatetime: z.date().optional().nullable(),
-      title: z.string(),
-      featured: z.boolean().optional(),
       draft: z.boolean().optional(),
-      tags: z.array(z.string()).default(["others"]),
-      ogImage: image().or(z.string()).optional(),
-      description: z.string(),
-      canonicalURL: z.string().optional(),
-      hideEditPost: z.boolean().optional(),
-      timezone: z.string().optional(),
+      featured: z.boolean().optional(),
+      tags: z.array(z.string()).default([]),
+      // Hand-drawn doodle shown next to the post in lists and at the top of the post.
+      // Until one exists, a placeholder blob is drawn instead.
+      doodle: image().optional(),
+      author: z.string().optional(),
     }),
 });
 
