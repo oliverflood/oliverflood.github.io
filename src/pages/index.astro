@@ -7,19 +7,5 @@ const posts = await getPosts();
 ---
 
 <Base>
-  <section class="intro">
-    <div>
-      <h1 class="intro-title">Hi, thanks for visiting my website!</h1>
-      <p class="intro-text">
-        I'm Oliver, an MS student at Oregon State University studying computer science.
-      </p>
-    </div>
-    <div class="portrait-slot" aria-hidden="true">
-      <span>self-portrait doodle goes here</span>
-    </div>
-  </section>
-
-  <h2 class="section-label">Writing</h2>
-  <PostList posts={posts.slice(0, 6)} />
-  {posts.length > 6 && <p class="more"><a href="/posts/">all writing →</a></p>}
+  <PostList posts={posts} />
 </Base>

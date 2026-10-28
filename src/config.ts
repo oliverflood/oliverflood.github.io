@@ -4,8 +4,8 @@ export const SITE = {
   author: "Oliver Flood",
   description: "Oliver Flood's personal website and blog.",
   links: [
-    { name: "github", href: "https://github.com/oliverflood" },
-    { name: "linkedin", href: "https://www.linkedin.com/in/oliverflood/" },
-    { name: "email", href: "mailto:oliveroldrich@gmail.com" },
+    { name: "GitHub", href: "https://github.com/oliverflood" },
+    { name: "LinkedIn", href: "https://www.linkedin.com/in/oliverflood/" },
+    { name: "Email", href: "mailto:oliveroldrich@gmail.com" },
   ],
 } as const;

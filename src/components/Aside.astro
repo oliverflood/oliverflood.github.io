@@ -4,9 +4,10 @@ interface Props {
   variant: "note" | "caution" | "oops" | "info";
 }
 const { variant } = Astro.props;
+const label = { note: "Note", caution: "Caution", oops: "Oops", info: "Info" }[variant];
 ---
 
-<aside class={`aside aside-${variant}`}>
-  <p class="aside-label">{variant}</p>
+<aside class="aside">
+  <strong>{label}.</strong>
   <slot />
 </aside>

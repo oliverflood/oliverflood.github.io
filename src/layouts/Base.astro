@@ -8,12 +8,8 @@ interface Props {
 }
 
 const { title, description = SITE.description } = Astro.props;
-const fullTitle = title ? `${title} · ${SITE.title}` : SITE.title;
-const path = Astro.url.pathname;
-const nav = [
-  { name: "writing", href: "/posts/" },
-  { name: "about", href: "/about/" },
-];
+const fullTitle = title ? `${title} | ${SITE.title}` : SITE.title;
+const url = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -23,11 +19,10 @@ const nav = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <meta name="author" content={SITE.author} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={new URL(path, Astro.site)} />
-    <link rel="canonical" href={new URL(path, Astro.site)} />
+    <meta property="og:url" content={url} />
+    <link rel="canonical" href={url} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" title={SITE.title} href="/rss.xml" />
@@ -35,43 +30,25 @@ const nav = [
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap"
     />
   </head>
   <body>
     <header class="site-header">
-      <div class="wrap header-row">
-        <a href="/" class="site-name">
-          {SITE.title}
-          <svg class="name-squiggle" viewBox="0 0 160 12" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M2 7 C 22 3, 38 10, 58 6 S 96 3, 118 7 S 146 9, 158 4" />
-          </svg>
-        </a>
-        <nav class="site-nav">
-          {
-            nav.map(item => (
-              <a href={item.href} aria-current={path.startsWith(item.href) ? "page" : undefined}>
-                {item.name}
-              </a>
-            ))
-          }
-          <a href="/rss.xml">rss</a>
-        </nav>
-      </div>
+      <a href="/" class="site-name">{SITE.title}</a>
+      <nav>
+        <a href="/posts/">Writing</a>
+        <a href="/about/">About</a>
+      </nav>
     </header>
 
-    <main class="wrap">
+    <main>
       <slot />
     </main>
 
-    <footer class="site-footer wrap">
-      <hr class="wobble" />
-      <div class="footer-row">
-        <span>© {new Date().getFullYear()} {SITE.author}</span>
-        <span class="footer-links">
-          {SITE.links.map(link => <a href={link.href}>{link.name}</a>)}
-        </span>
-      </div>
+    <footer class="site-footer">
+      {SITE.links.map(link => <a href={link.href}>{link.name}</a>)}
+      <a href="/rss.xml">RSS</a>
     </footer>
   </body>
 </html>

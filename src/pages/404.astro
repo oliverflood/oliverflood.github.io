@@ -1,12 +1,8 @@
 ---
 import Base from "@/layouts/Base.astro";
-import Doodle from "@/components/Doodle.astro";
 ---
 
 <Base title="Not found">
-  <section class="not-found">
-    <Doodle seed={Astro.url.pathname} size={140} />
-    <h1 class="page-title">Nothing here</h1>
-    <p><a href="/">Back to the front page</a></p>
-  </section>
+  <h1>Page not found</h1>
+  <p><a href="/">Go to the front page</a></p>
 </Base>
