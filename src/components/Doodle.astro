@@ -27,11 +27,12 @@ const rand = () => {
 const colors = ["blue", "red", "green", "yellow"];
 const color = colors[Math.floor(rand() * colors.length)];
 
-// Wobbly closed blob: points around a circle with jittered radii, joined by a smooth curve
-const n = 7 + Math.floor(rand() * 3);
+// Wobbly closed blob: points around a circle with jittered radii, joined by a smooth curve.
+// Fill and outline are drawn slightly apart, like a misregistered print.
+const n = 6 + Math.floor(rand() * 4);
 const pts = Array.from({ length: n }, (_, i) => {
-  const a = (i / n) * Math.PI * 2 + rand() * 0.4;
-  const r = 30 + rand() * 12;
+  const a = (i / n) * Math.PI * 2 + rand() * 0.6;
+  const r = 25 + rand() * 18;
   return [50 + Math.cos(a) * r, 50 + Math.sin(a) * r];
 });
 const blob = (offset: number) => {
@@ -58,8 +59,8 @@ const blob = (offset: number) => {
       height={size}
       aria-hidden="true"
     >
-      <path d={blob(0)} class="fill" />
-      <path d={blob(2.5)} class="line" />
+      <path d={blob(-2.5)} class="fill" />
+      <path d={blob(3)} class="line" />
     </svg>
   )
 }
