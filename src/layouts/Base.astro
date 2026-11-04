@@ -47,7 +47,7 @@ const url = new URL(Astro.url.pathname, Astro.site);
     {
       home ? (
         <header class="title-block">
-          <h1 class="caps">{SITE.title}</h1>
+          <h1>{SITE.title}</h1>
           <nav>
             <a href="/posts/">Writing</a>
             <a href="/about/">About</a>
@@ -56,7 +56,7 @@ const url = new URL(Astro.url.pathname, Astro.site);
         </header>
       ) : (
         <header class="running-head">
-          <a href="/" class="caps">{SITE.title}</a>
+          <a href="/">{SITE.title}</a>
           <nav>
             <a href="/posts/">Writing</a>
             <a href="/about/">About</a>
