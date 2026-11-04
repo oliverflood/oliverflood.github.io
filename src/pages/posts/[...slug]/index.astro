@@ -35,7 +35,7 @@ const updated = modDatetime && modDatetime.toDateString() !== pubDatetime.toDate
     <p class="abstract"><span class="caps">Abstract:</span> {description}</p>
     {
       tags.length > 0 && (
-        <dl class="hanging">
+        <dl class="hanging keywords">
           <dt>Key Words:</dt>
           <dd>
             <ul>{tags.map(tag => <li>{tag}</li>)}</ul>

@@ -314,3 +314,8 @@ code {
     padding-left: 3ch;
   }
 }
+
+/* Key words are single-spaced, like the paper's keyword list */
+.keywords li {
+  margin: 0;
+}
