@@ -21,6 +21,7 @@ const updated = modDatetime && modDatetime.toDateString() !== pubDatetime.toDate
 
 <Base title={title} description={description}>
   <article>
+    <div class="front-matter">
     <header class="title-block">
       {doodle && <Image src={doodle} alt="" width={400} class="post-doodle" />}
       <h1 class="caps">{title}</h1>
@@ -32,17 +33,18 @@ const updated = modDatetime && modDatetime.toDateString() !== pubDatetime.toDate
       </p>
     </header>
 
-    <p class="abstract"><span class="caps">Abstract:</span> {description}</p>
+    <p class="abstract"><span class="label caps">Abstract:</span> {description}</p>
     {
       tags.length > 0 && (
         <dl class="hanging keywords">
-          <dt>Key Words:</dt>
+          <dt class="label">Key Words:</dt>
           <dd>
             <ul>{tags.map(tag => <li>{tag}</li>)}</ul>
           </dd>
         </dl>
       )
     }
+    </div>
 
     <div class="prose">
       <Content />

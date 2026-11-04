@@ -1,24 +1,32 @@
 /* oliverflood.com: laid out like the typed first page of a 1970s research paper
    (after "SEQUEL: A Structured English Query Language", Chamberlin & Boyce, 1974).
-   One typewriter face, centered title block, run-in labels, hanging lists. */
+   Typewriter face for the page furniture (title block, labels, headings, lists), a serif for reading.
+   Gray for front matter and labels, ink for the text itself. Light theme by default, dark on request. */
 
-:root {
+:root,
+[data-theme="light"] {
   --paper: #fdfcf8;
   --ink: #1d1c1a;
-  --faint: #6f6c66;
+  --title: #45433f; /* title block */
+  --gray: #7a766f; /* labels, running head, dates */
   --rule: #e2dfd6;
   --box: #f4f2ec;
-  color-scheme: light dark;
+  color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #19191a;
-    --ink: #e4e1da;
-    --faint: #98948c;
-    --rule: #34332f;
-    --box: #232325;
-  }
+[data-theme="dark"] {
+  --paper: #19191a;
+  --ink: #e4e1da;
+  --title: #c3bfb7;
+  --gray: #8e8a83;
+  --rule: #34332f;
+  --box: #232325;
+  color-scheme: dark;
+}
+
+:root {
+  --type: "Courier Prime", "Courier New", monospace;
+  --serif: "Source Serif 4", Georgia, serif;
 }
 
 * {
@@ -28,14 +36,14 @@
 html {
   background: var(--paper);
   color: var(--ink);
-  font: 400 1.0625rem/1.65 "Courier Prime", "Courier New", monospace; /* 17px */
+  font: 400 1.125rem/1.65 var(--serif); /* 18px */
   -webkit-text-size-adjust: 100%;
 }
 
 body {
   max-width: 40rem;
   margin: 0 auto;
-  padding: 3rem 1.5rem 3rem;
+  padding: 2.5rem 1.5rem 3rem;
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -62,6 +70,7 @@ img {
 h1,
 h2,
 h3 {
+  font-family: var(--type);
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.4;
@@ -72,46 +81,29 @@ h3 {
   letter-spacing: 0.06em;
 }
 
+.label,
 .date {
-  color: var(--faint);
+  color: var(--gray);
 }
 
-/* ---------- Title block (home page, and the top of each post) ---------- */
-.title-block {
-  text-align: center;
-  margin: 3.5rem 0 6rem;
-}
-.title-block h1 {
-  font-size: 1.15rem;
-  margin: 0 0 1.6rem;
-}
-.title-block p {
-  margin: 0 0 1.4rem;
-}
-.title-block nav {
-  display: flex;
-  justify-content: center;
-  gap: 2.5rem;
-}
-.post-doodle {
-  display: block;
-  width: 220px;
-  margin: 0 auto 2rem;
-}
-
-/* Small centered "running head" on every page except home */
+/* ---------- Running head (every page except home) ---------- */
 .running-head {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 1rem;
-  font-size: 0.9rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--rule);
   margin-bottom: 2rem;
+  font-family: var(--type);
+  font-size: 0.85rem;
+  color: var(--gray);
 }
 .running-head a {
   text-decoration: none;
 }
 .running-head a:hover {
+  color: var(--ink);
   text-decoration: underline;
 }
 .running-head nav {
@@ -119,37 +111,83 @@ h3 {
   gap: 1.5rem;
 }
 
+.theme-toggle {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.theme-toggle:hover {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* ---------- Title block (home page, and the top of each post) ---------- */
+.title-block {
+  text-align: center;
+  margin: 3.5rem 0 4.5rem;
+  font-family: var(--type);
+  color: var(--title);
+}
+.title-block h1 {
+  font-size: 1.15rem;
+  margin: 0 0 1.6rem;
+}
+.title-block p {
+  margin: 0 0 1.2rem;
+}
+.title-block nav {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  color: var(--gray);
+}
+.title-block nav a:hover,
+.title-block .theme-toggle:hover {
+  color: var(--ink);
+}
+.post-doodle {
+  display: block;
+  width: 220px;
+  margin: 0 auto 2rem;
+}
+
+/* A post's front matter (title block, abstract, key words) is set off from the body by a rule */
+.front-matter {
+  padding-bottom: 2.2rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 2.8rem;
+}
+
 .page-title {
   text-align: center;
   font-size: 1.15rem;
+  color: var(--title);
   margin: 3rem 0 3.5rem;
-}
-
-/* Footer: where the page number sits on a typed page */
-.site-footer {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.4rem 1.75rem;
-  margin-top: 6rem;
-  font-size: 0.9rem;
-  color: var(--faint);
 }
 
 /* ---------- Run-in labels and hanging lists ---------- */
 .abstract {
-  margin: 0 0 1.6rem;
+  margin: 0 0 1.4rem;
+}
+.abstract .label {
+  font-family: var(--type);
+  font-size: 0.95rem;
+  margin-right: 0.4ch;
 }
 
 .hanging {
   display: grid;
   grid-template-columns: max-content 1fr;
   column-gap: 2ch;
-  margin: 0 0 1.6rem;
-}
-.hanging dt {
   margin: 0;
+  font-family: var(--type);
+  font-size: 0.95rem;
 }
+.hanging dt,
 .hanging dd {
   margin: 0;
 }
@@ -159,20 +197,35 @@ h3 {
   padding: 0;
 }
 .hanging li {
-  margin: 0 0 0.9rem;
+  margin: 0 0 1rem;
 }
 .hanging li:last-child {
   margin-bottom: 0;
 }
 .hanging .date {
   display: block;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+}
+.keywords li {
+  margin: 0;
+}
+
+/* ---------- Footer: where the page number sits on a typed page ---------- */
+.site-footer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.75rem;
+  margin-top: 6rem;
+  font-family: var(--type);
+  font-size: 0.85rem;
+  color: var(--gray);
+}
+.site-footer a:hover {
+  color: var(--ink);
 }
 
 /* ---------- Post body ---------- */
-.prose {
-  margin-top: 4rem;
-}
 .prose > :first-child {
   margin-top: 0;
 }
@@ -191,10 +244,6 @@ h3 {
   text-underline-offset: 0.2em;
   margin: 2em 0 0.6em;
 }
-.prose ul,
-.prose ol {
-  padding-left: 3ch;
-}
 .prose li {
   margin: 0.3em 0;
 }
@@ -204,16 +253,19 @@ h3 {
 }
 .prose blockquote {
   margin: 1.5em 0;
-  padding-left: 3ch;
-  color: var(--faint);
+  padding-left: 1.2rem;
+  border-left: 2px solid var(--rule);
+  color: var(--gray);
 }
 .prose hr {
   border: 0;
   text-align: center;
   margin: 2.5em 0;
+  color: var(--gray);
 }
 .prose hr::after {
   content: "* * *";
+  font-family: var(--type);
   letter-spacing: 0.5em;
 }
 .prose figure {
@@ -221,25 +273,25 @@ h3 {
 }
 .prose figcaption {
   font-size: 0.9rem;
-  color: var(--faint);
+  color: var(--gray);
   text-align: center;
   margin-top: 0.6rem;
 }
 .prose table {
   border-collapse: collapse;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 .prose th,
 .prose td {
   border-bottom: 1px solid var(--rule);
-  padding: 0.35em 2ch 0.35em 0;
+  padding: 0.35em 1.5em 0.35em 0;
   text-align: left;
 }
 
 /* Code */
 code {
-  font-family: "Courier Prime", ui-monospace, monospace;
-  font-size: 0.95em;
+  font-family: var(--type);
+  font-size: 0.9em;
 }
 .prose :not(pre) > code {
   background: var(--box);
@@ -257,10 +309,8 @@ code {
 .astro-code span {
   color: var(--shiki-light);
 }
-@media (prefers-color-scheme: dark) {
-  .astro-code span {
-    color: var(--shiki-dark);
-  }
+[data-theme="dark"] .astro-code span {
+  color: var(--shiki-dark);
 }
 
 /* Asides (<Aside variant="note">) */
@@ -275,7 +325,10 @@ code {
   margin: 0 0 0.8rem;
 }
 .aside-label {
+  font-family: var(--type);
   font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--gray);
 }
 
 /* Image grids used in the cloud post (class names kept from the old Tailwind markup) */
@@ -296,13 +349,16 @@ code {
 
 @media (max-width: 540px) {
   html {
-    font-size: 1rem;
+    font-size: 1.0625rem;
   }
   body {
-    padding: 2rem 1.1rem;
+    padding: 1.75rem 1.1rem;
   }
   .title-block {
-    margin: 2rem 0 4rem;
+    margin: 2rem 0 3.5rem;
+  }
+  .running-head nav {
+    gap: 1rem;
   }
   .hanging {
     grid-template-columns: 1fr;
@@ -313,9 +369,4 @@ code {
   .hanging dd {
     padding-left: 3ch;
   }
-}
-
-/* Key words are single-spaced, like the paper's keyword list */
-.keywords li {
-  margin: 0;
 }
