@@ -2,6 +2,7 @@
 import { render } from "astro:content";
 import { Image } from "astro:assets";
 import Base from "@/layouts/Base.astro";
+import { SITE } from "@/config";
 import { getPosts, formatDate, type Post } from "@/lib/posts";
 
 export async function getStaticPaths() {
@@ -13,19 +14,36 @@ interface Props {
   post: Post;
 }
 const { post } = Astro.props;
-const { title, description, pubDatetime, modDatetime, doodle } = post.data;
+const { title, description, pubDatetime, modDatetime, tags, doodle } = post.data;
 const { Content } = await render(post);
 const updated = modDatetime && modDatetime.toDateString() !== pubDatetime.toDateString();
 ---
 
 <Base title={title} description={description}>
   <article>
-    {doodle && <Image src={doodle} alt="" width={400} class="post-header-doodle" />}
-    <h1>{title}</h1>
-    <p class="date">
-      {formatDate(pubDatetime)}
-      {updated && <span>(updated {formatDate(modDatetime)})</span>}
-    </p>
+    <header class="title-block">
+      {doodle && <Image src={doodle} alt="" width={400} class="post-doodle" />}
+      <h1 class="caps">{title}</h1>
+      <p>by</p>
+      <p>{SITE.author}</p>
+      <p>
+        {formatDate(pubDatetime)}
+        {updated && <><br />revised {formatDate(modDatetime)}</>}
+      </p>
+    </header>
+
+    <p class="abstract"><span class="caps">Abstract:</span> {description}</p>
+    {
+      tags.length > 0 && (
+        <dl class="hanging">
+          <dt>Key Words:</dt>
+          <dd>
+            <ul>{tags.map(tag => <li>{tag}</li>)}</ul>
+          </dd>
+        </dl>
+      )
+    }
+
     <div class="prose">
       <Content />
     </div>

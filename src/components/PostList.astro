@@ -1,25 +1,27 @@
 ---
-import { Image } from "astro:assets";
+// Posts as a hanging list, like the "Key Words and Phrases:" block on an old paper's first page
 import { formatDate, postUrl, type Post } from "@/lib/posts";
 
 interface Props {
   posts: Post[];
+  label?: string;
 }
-const { posts } = Astro.props;
+const { posts, label = "Writing:" } = Astro.props;
 ---
 
-<ul class="post-list">
-  {
-    posts.map(post => (
-      <li>
-        {post.data.doodle && <Image src={post.data.doodle} alt="" width={160} class="post-doodle" />}
-        <div>
-          <a href={postUrl(post)} class="post-link">{post.data.title}</a>
-          {post.data.draft && <span class="draft">(draft)</span>}
-          <p class="post-desc">{post.data.description}</p>
-          <time class="date" datetime={post.data.pubDatetime.toISOString()}>{formatDate(post.data.pubDatetime)}</time>
-        </div>
-      </li>
-    ))
-  }
-</ul>
+<dl class="hanging">
+  <dt>{label}</dt>
+  <dd>
+    <ul>
+      {
+        posts.map(post => (
+          <li>
+            <a href={postUrl(post)}>{post.data.title}</a>
+            {post.data.draft && " (draft)"}
+            <span class="date">{formatDate(post.data.pubDatetime)}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </dd>
+</dl>

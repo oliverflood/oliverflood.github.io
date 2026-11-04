@@ -1,23 +1,23 @@
-/* oliverflood.com: one serif, one column, plain links. */
+/* oliverflood.com: laid out like the typed first page of a 1970s research paper
+   (after "SEQUEL: A Structured English Query Language", Chamberlin & Boyce, 1974).
+   One typewriter face, centered title block, run-in labels, hanging lists. */
 
 :root {
-  --bg: #fffefc;
-  --text: #1a1a1a;
-  --muted: #6b6b6b;
-  --line: #e4e2dc;
-  --link: #1f4fbf;
-  --box: #f6f5f1;
+  --paper: #fdfcf8;
+  --ink: #1d1c1a;
+  --faint: #6f6c66;
+  --rule: #e2dfd6;
+  --box: #f4f2ec;
   color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #18181a;
-    --text: #e6e4df;
-    --muted: #9a978f;
-    --line: #34332f;
-    --link: #8fb0f5;
-    --box: #222224;
+    --paper: #19191a;
+    --ink: #e4e1da;
+    --faint: #98948c;
+    --rule: #34332f;
+    --box: #232325;
   }
 }
 
@@ -26,36 +26,32 @@
 }
 
 html {
-  background: var(--bg);
-  color: var(--text);
-  font: 400 1.1875rem/1.6 "Source Serif 4", Georgia, serif; /* 19px */
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.0625rem/1.65 "Courier Prime", "Courier New", monospace; /* 17px */
   -webkit-text-size-adjust: 100%;
 }
 
 body {
-  max-width: 38rem;
+  max-width: 40rem;
   margin: 0 auto;
-  padding: 3rem 1.25rem 4rem;
+  padding: 3rem 1.5rem 3rem;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 a {
-  color: var(--link);
+  color: inherit;
   text-decoration-thickness: 1px;
-  text-underline-offset: 0.15em;
+  text-underline-offset: 0.2em;
 }
 a:hover {
   text-decoration-thickness: 2px;
-}
-
-h1,
-h2,
-h3 {
-  font-weight: 600;
-  line-height: 1.25;
-}
-h1 {
-  font-size: 1.6rem;
-  margin: 0 0 0.3rem;
 }
 
 img {
@@ -63,116 +59,171 @@ img {
   height: auto;
 }
 
-.date {
-  color: var(--muted);
-  font-size: 0.85rem;
-  margin: 0;
+h1,
+h2,
+h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
 }
 
-/* Header and footer */
-.site-header {
+.caps {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.date {
+  color: var(--faint);
+}
+
+/* ---------- Title block (home page, and the top of each post) ---------- */
+.title-block {
+  text-align: center;
+  margin: 3.5rem 0 6rem;
+}
+.title-block h1 {
+  font-size: 1.15rem;
+  margin: 0 0 1.6rem;
+}
+.title-block p {
+  margin: 0 0 1.4rem;
+}
+.title-block nav {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+}
+.post-doodle {
+  display: block;
+  width: 220px;
+  margin: 0 auto 2rem;
+}
+
+/* Small centered "running head" on every page except home */
+.running-head {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 1rem;
-  margin-bottom: 3.5rem;
-}
-.site-header a {
-  color: var(--text);
-  text-decoration: none;
-}
-.site-header a:hover {
-  text-decoration: underline;
-}
-.site-name {
-  font-weight: 600;
-}
-.site-header nav {
-  display: flex;
-  gap: 1.25rem;
-}
-
-.site-footer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 1.25rem;
-  margin-top: 4.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--line);
-  font-size: 0.85rem;
-}
-.site-footer a {
-  color: var(--muted);
-}
-
-/* Post list */
-.post-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.post-list li {
-  display: flex;
-  gap: 1.25rem;
+  font-size: 0.9rem;
   margin-bottom: 2rem;
 }
-.post-link {
-  font-size: 1.15rem;
-  font-weight: 600;
+.running-head a {
+  text-decoration: none;
 }
-.post-desc {
-  margin: 0.15rem 0 0.2rem;
+.running-head a:hover {
+  text-decoration: underline;
 }
-.post-doodle {
-  width: 80px;
-  flex: none;
-}
-.draft {
-  color: var(--muted);
-  margin-left: 0.4rem;
+.running-head nav {
+  display: flex;
+  gap: 1.5rem;
 }
 
-/* Post pages */
-article h1 {
-  font-size: 1.85rem;
+.page-title {
+  text-align: center;
+  font-size: 1.15rem;
+  margin: 3rem 0 3.5rem;
 }
-.post-header-doodle {
+
+/* Footer: where the page number sits on a typed page */
+.site-footer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.75rem;
+  margin-top: 6rem;
+  font-size: 0.9rem;
+  color: var(--faint);
+}
+
+/* ---------- Run-in labels and hanging lists ---------- */
+.abstract {
+  margin: 0 0 1.6rem;
+}
+
+.hanging {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 2ch;
+  margin: 0 0 1.6rem;
+}
+.hanging dt {
+  margin: 0;
+}
+.hanging dd {
+  margin: 0;
+}
+.hanging ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.hanging li {
+  margin: 0 0 0.9rem;
+}
+.hanging li:last-child {
+  margin-bottom: 0;
+}
+.hanging .date {
   display: block;
-  width: 200px;
-  margin-bottom: 1rem;
+  font-size: 0.9rem;
 }
+
+/* ---------- Post body ---------- */
 .prose {
-  margin-top: 2rem;
+  margin-top: 4rem;
+}
+.prose > :first-child {
+  margin-top: 0;
+}
+.prose p,
+.prose ul,
+.prose ol {
+  margin: 0 0 1.1em;
 }
 .prose h2 {
-  font-size: 1.3rem;
-  margin: 2.2em 0 0.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 2.8em 0 1em;
 }
 .prose h3 {
-  font-size: 1.1rem;
-  margin: 1.8em 0 0.4em;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  margin: 2em 0 0.6em;
+}
+.prose ul,
+.prose ol {
+  padding-left: 3ch;
 }
 .prose li {
-  margin: 0.25em 0;
+  margin: 0.3em 0;
+}
+.prose li > ul,
+.prose li > ol {
+  margin: 0.2em 0 0;
 }
 .prose blockquote {
   margin: 1.5em 0;
-  padding-left: 1rem;
-  border-left: 2px solid var(--line);
-  color: var(--muted);
+  padding-left: 3ch;
+  color: var(--faint);
 }
 .prose hr {
   border: 0;
-  border-top: 1px solid var(--line);
+  text-align: center;
   margin: 2.5em 0;
 }
+.prose hr::after {
+  content: "* * *";
+  letter-spacing: 0.5em;
+}
 .prose figure {
-  margin: 2em 0;
+  margin: 2.2em 0;
 }
 .prose figcaption {
-  color: var(--muted);
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--faint);
+  text-align: center;
+  margin-top: 0.6rem;
 }
 .prose table {
   border-collapse: collapse;
@@ -180,27 +231,27 @@ article h1 {
 }
 .prose th,
 .prose td {
-  border-bottom: 1px solid var(--line);
-  padding: 0.35em 0.75em 0.35em 0;
+  border-bottom: 1px solid var(--rule);
+  padding: 0.35em 2ch 0.35em 0;
   text-align: left;
 }
 
 /* Code */
 code {
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  font-size: 0.82em;
+  font-family: "Courier Prime", ui-monospace, monospace;
+  font-size: 0.95em;
 }
 .prose :not(pre) > code {
   background: var(--box);
-  padding: 0.1em 0.3em;
-  border-radius: 3px;
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
 }
 .prose pre {
   font-size: 0.85rem;
   line-height: 1.5;
-  padding: 0.9rem 1rem;
+  padding: 0.9rem 1.1rem;
   overflow-x: auto;
-  border-radius: 4px;
+  border-radius: 3px;
   background: var(--box) !important;
 }
 .astro-code span {
@@ -214,18 +265,17 @@ code {
 
 /* Asides (<Aside variant="note">) */
 .aside {
-  margin: 1.5em 0;
-  padding: 0.8rem 1rem 0.1rem;
-  background: var(--box);
-  border-radius: 4px;
+  margin: 1.8em 0;
+  padding: 0.9rem 1.2rem 0.2rem;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
   font-size: 0.95rem;
 }
-.aside > strong {
-  display: block;
-  margin-bottom: 0.2rem;
-}
 .aside p {
-  margin: 0 0 0.7rem;
+  margin: 0 0 0.8rem;
+}
+.aside-label {
+  font-weight: 700;
 }
 
 /* Image grids used in the cloud post (class names kept from the old Tailwind markup) */
@@ -246,12 +296,21 @@ code {
 
 @media (max-width: 540px) {
   html {
-    font-size: 1.0625rem; /* 17px */
+    font-size: 1rem;
   }
   body {
-    padding-top: 1.75rem;
+    padding: 2rem 1.1rem;
   }
-  .site-header {
-    margin-bottom: 2.5rem;
+  .title-block {
+    margin: 2rem 0 4rem;
+  }
+  .hanging {
+    grid-template-columns: 1fr;
+  }
+  .hanging dt {
+    margin-bottom: 0.5rem;
+  }
+  .hanging dd {
+    padding-left: 3ch;
   }
 }
