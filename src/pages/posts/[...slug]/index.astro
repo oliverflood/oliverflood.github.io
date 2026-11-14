@@ -14,36 +14,56 @@ interface Props {
   post: Post;
 }
 const { post } = Astro.props;
-const { title, description, pubDatetime, modDatetime, tags, doodle } = post.data;
+const { title, description, pubDatetime, modDatetime, tags, doodle } =
+  post.data;
 const { Content } = await render(post);
-const updated = modDatetime && modDatetime.toDateString() !== pubDatetime.toDateString();
+const updated =
+  modDatetime && modDatetime.toDateString() !== pubDatetime.toDateString();
 ---
 
 <Base title={title} description={description}>
   <article>
     <div class="front-matter">
-    <header class="title-block">
-      {doodle && <Image src={doodle} alt="" width={400} class="post-doodle" />}
-      <h1 class="caps">{title}</h1>
-      <p>by</p>
-      <p>{SITE.author}</p>
-      <p>
-        {formatDate(pubDatetime)}
-        {updated && <><br />revised {formatDate(modDatetime)}</>}
-      </p>
-    </header>
+      <header class="title-block">
+        {
+          doodle && (
+            <Image src={doodle} alt="" width={400} class="post-doodle" />
+          )
+        }
+        <h1 class="caps">{title}</h1>
+        <p>by</p>
+        <p>{SITE.author}</p>
+        <p>
+          {formatDate(pubDatetime)}
+          {
+            updated && (
+              <>
+                <br />
+                revised {formatDate(modDatetime)}
+              </>
+            )
+          }
+        </p>
+      </header>
 
-    <p class="abstract"><span class="label caps">Abstract:</span> {description}</p>
-    {
-      tags.length > 0 && (
-        <dl class="hanging keywords">
-          <dt class="label">Key Words:</dt>
-          <dd>
-            <ul>{tags.map(tag => <li>{tag}</li>)}</ul>
-          </dd>
-        </dl>
-      )
-    }
+      <p class="abstract">
+        <span class="label caps">Abstract:</span>
+        {description}
+      </p>
+      {
+        tags.length > 0 && (
+          <dl class="hanging keywords">
+            <dt class="label">Key Words:</dt>
+            <dd>
+              <ul>
+                {tags.map(tag => (
+                  <li>{tag}</li>
+                ))}
+              </ul>
+            </dd>
+          </dl>
+        )
+      }
     </div>
 
     <div class="prose">

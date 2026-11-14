@@ -4,7 +4,9 @@ interface Props {
   variant: "note" | "caution" | "oops" | "info";
 }
 const { variant } = Astro.props;
-const label = { note: "Note", caution: "Caution", oops: "Oops", info: "Info" }[variant];
+const label = { note: "Note", caution: "Caution", oops: "Oops", info: "Info" }[
+  variant
+];
 ---
 
 <aside class="aside">
