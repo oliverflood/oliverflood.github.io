@@ -3,12 +3,18 @@ layout: ../layouts/Page.astro
 title: "About"
 ---
 
-Hi, thanks for visiting my website!
+I'm Oliver. I work on machine learning, mostly reinforcement learning and causal inference.
 
-I'm Oliver, an MS student at Oregon State University studying computer science. I'm also the vice president of the [OSU ACM chapter](https://acm.oregonstate.edu) where I enjoy competitive programming.
+Right now I'm a graduate researcher in the Causal Intelligence and Reasoning Lab at Oregon State, working on methods
+that learn cause-and-effect structure from data using expert knowledge. Before that I spent a summer at Walmart Global
+Tech getting person and cart detection to run on the cameras in Sam's Club stores instead of on a GPU server, and
+a year building radiology scheduling software at K-Space.
 
-<!-- Some things I love doing: solving the annual [Advent of Code](https://adventofcode.com/) puzzles, struggling through [Project Euler](https://projecteuler.net/) problems, studying on the 2nd floor of The Valley Library, and biking when the sun comes out.  -->
+On the side I build things like a Super Auto Pets bot that learned the game entirely through self-play on a
+university cluster, and a classifier for photos of clouds ([part one](/posts/clouds/)).
 
-Feel free to reach out using the links below!
+I also like competitive programming and math contests. I've competed in ICPC and the Putnam, and I was vice
+president of OSU's [ACM chapter](https://acm.oregonstate.edu).
 
-<!-- _This website was made with [Astro](https://github.com/withastro/astro) using the [AstroPaper](https://github.com/satnaing/astro-paper) theme._ -->
+The best way to reach me is [email](mailto:oliveroldrich@gmail.com). I'm also on
+[GitHub](https://github.com/oliverflood) and [LinkedIn](https://www.linkedin.com/in/oliverflood/).
