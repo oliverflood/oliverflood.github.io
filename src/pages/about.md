@@ -4,18 +4,20 @@ title: "About"
 description: "About Oliver Flood: research in causal inference at Oregon State, machine learning engineering, and side projects."
 ---
 
-I'm Oliver. I work on machine learning, mostly reinforcement learning and causal inference.
+Hi, I'm Oliver. I'm interested in AI in the broad sense of Russell and Norvig's _Artificial Intelligence: A Modern
+Approach_, and especially in causality, learning from experience (reinforcement learning), and computer vision.
 
-Right now I'm a graduate researcher in the Causal Intelligence and Reasoning Lab at Oregon State, working on methods
-that learn cause-and-effect structure from data using expert knowledge. Before that I spent a summer at Walmart Global
-Tech getting person and cart detection to run on the cameras in Sam's Club stores instead of on a GPU server, and
-a year building radiology scheduling software at K-Space.
+I'm a graduate research assistant in the Causal Intelligence and Reasoning Lab at Oregon State University, where I work
+on methods that learn and use cause-and-effect structure in data. This past summer I was on the computer vision team at
+Walmart Global Tech, moving inference off GPU servers and onto hardware accelerators built into the cameras.
 
-On the side I build things like a Super Auto Pets bot that learned the game entirely through self-play on a
-university cluster, and a classifier for photos of clouds ([part one](/posts/clouds/)).
+On the side, I like to tinker with AI and ML projects. Two I had a lot of fun with: a Super Auto Pets bot that learned
+the game entirely through self-play on the OSU HPC cluster, and a computer vision project that
+[classifies clouds](/posts/clouds/) in everyday phone photos.
 
-I also like competitive programming and math contests. I've competed in ICPC and the Putnam, and I was vice
-president of OSU's [ACM chapter](https://acm.oregonstate.edu).
+I also like competitive programming and math contests. I regularly compete in ICPC and the Putnam, and I've made many
+good friends through them. I was vice president of OSU's [ACM chapter](https://acm.oregonstate.edu), which organizes
+ICPC here, and of the OSU Chess Club.
 
-The best way to reach me is [email](mailto:oliveroldrich@gmail.com). I'm also on
+Feel free to reach out by [email](mailto:oliveroldrich@gmail.com)! You can also find me on
 [GitHub](https://github.com/oliverflood) and [LinkedIn](https://www.linkedin.com/in/oliverflood/).
