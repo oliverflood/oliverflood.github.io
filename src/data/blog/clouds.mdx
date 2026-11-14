@@ -8,7 +8,7 @@ draft: false
 tags:
   - ml
   - clouds
-description: Trying to building an end-to-end ML project to identify cloud types in phone camera photos. Can we find good data?
+description: "To build an app that identifies clouds in everyday phone photos, I need training data that looks like everyday phone photos. I compare three datasets (CCSN, NASA GLOBE, and NASA GLOBE CLOUD GAZE) and pick CLOUD GAZE."
 ---
 
 import Aside from "../../components/Aside.astro";
@@ -286,7 +286,9 @@ This different labeling gives the GAZE data a unique tradeoff. We can't classify
 
 ## Conclusion
 
-Well, looks like GAZE is good enough for a first try. Tune in for another post in the near (?) future, when I feel the random urge to write again!
+CCSN has clean labels, but its photos look nothing like what an app would see. GLOBE has the right kind of photos, but its labels are noisy and only per observation. GAZE gets the best of both: GLOBE's everyday photos with consensus labels for each photo. The cost is a coarser label set (7 classes, and no nimbostratus), which is a fair trade for a first version.
+
+So GAZE it is. In the next post, I'll train a classifier on it.
 
 {/* We can strech this by using transformations like random resized crops, slight rotations, color jitter, and horizontal flips. This is a nice advantage of working on a computer vision problem, as these transformations generally preserve the original label but give us sufficiently different data so our model doesn't overfit. */}
 
