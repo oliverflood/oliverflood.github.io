@@ -1,6 +1,7 @@
 ---
 layout: ../layouts/Page.astro
 title: "About"
+description: "About Oliver Flood: research in causal inference at Oregon State, machine learning engineering, and side projects."
 ---
 
 I'm Oliver. I work on machine learning, mostly reinforcement learning and causal inference.
