@@ -12,6 +12,13 @@ interface Props {
 const { title, description = SITE.description, home = false } = Astro.props;
 const fullTitle = title ? `${title} | ${SITE.title}` : SITE.title;
 const url = new URL(Astro.url.pathname, Astro.site);
+
+// Dam Web Ring (https://github.com/lukasmwerner/dam-web-ring): the ring sends visitors to the previous/next member site
+const ringReferer = encodeURIComponent(new URL(SITE.url).hostname);
+const ring = {
+  prev: `https://dam-ring.pdx.land/prev?referer=${ringReferer}`,
+  next: `https://dam-ring.pdx.land/next?referer=${ringReferer}`,
+};
 ---
 
 <!doctype html>
@@ -88,8 +95,25 @@ const url = new URL(Astro.url.pathname, Astro.site);
     </main>
 
     <footer class="site-footer">
-      {SITE.links.map(link => <a href={link.href}>{link.name}</a>)}
-      <a href="/rss.xml">RSS</a>
+      <div class="footer-links">
+        {SITE.links.map(link => <a href={link.href}>{link.name}</a>)}
+        <a href="/rss.xml">RSS</a>
+      </div>
+      {
+        home && (
+          <nav class="webring" aria-label="Dam Web Ring">
+            <a href={ring.prev} rel="prev">
+              &larr; Previous
+            </a>
+            <a href="https://github.com/lukasmwerner/dam-web-ring">
+              Dam Web Ring
+            </a>
+            <a href={ring.next} rel="next">
+              Next &rarr;
+            </a>
+          </nav>
+        )
+      }
     </footer>
     <script is:inline>
       for (const button of document.querySelectorAll(".theme-toggle")) {

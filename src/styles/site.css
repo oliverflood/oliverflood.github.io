@@ -212,14 +212,28 @@ h3 {
 
 /* ---------- Footer: where the page number sits on a typed page ---------- */
 .site-footer {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.4rem 1.75rem;
   margin-top: 6rem;
   font-family: var(--type);
   font-size: 0.85rem;
   color: var(--gray);
+}
+.footer-links,
+.webring {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.75rem;
+}
+/* Dam Web Ring (home page only): a second, quieter line under the links */
+.webring {
+  margin-top: 1.2rem;
+  font-size: 0.8rem;
+}
+.webring a {
+  text-decoration: none;
+}
+.webring a:hover {
+  text-decoration: underline;
 }
 .site-footer a:hover {
   color: var(--ink);
